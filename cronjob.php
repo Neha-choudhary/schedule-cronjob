@@ -72,7 +72,7 @@ class CronJamesReport{
         $requestIsComplete=false;
         $requestQuery=sprintf('
         SELECT * FROM `mesmerizing-bee-273409.james_web_rawdata.requests` WHERE DATE(timestamp) = "%s";
-        ',$this->yesterDate);
+        ',$this->RequestYesterDate);
         $requestJobConfiguration = $this->requestClient
                 ->query($requestQuery)
                 ->allowLargeResults(true)
@@ -153,7 +153,7 @@ SELECT
              `mesmerizing-bee-273409.james_web_rawdata.requests`)
    select * from a where (site_id is not null and site_id <> 'null' and cft_uid is not null and cft_uid<>'null') and DATE(timestamp) = '%s' ;
    
-        ",$this->yesterDate);
+        ",$this->RequestYesterDate);
         $bigqueryJobConfiguration = $this->bigqueryClient
                 ->query($bigQueryQuery)
                 ->allowLargeResults(true)
@@ -193,7 +193,7 @@ $bigqueryRunJob=new CronJamesReport;//實體化
         $writeMessageTime=date("Ymd H:i:s");
         $errorMessage='runDailyRequestJob is fail';
         $bigqueryRunJob->writeLog($writeMessageTime." ".$errorMessage);
-        print_r("fail");
+        print_r("runDailyRequestJob is fail");
     }
     
     $runDailyLogSuccessorNot=$bigqueryRunJob->runDailyLog();
@@ -206,6 +206,6 @@ $bigqueryRunJob=new CronJamesReport;//實體化
         $writeMessageTime=date("Ymd H:i:s");
         $errorMessage='runDailyLog is fail';
         $bigqueryRunJob->writeLog($writeMessageTime." ".$errorMessage);
-        print_r("fail");
+        print_r("runDailyLog is fail");
     }
 ?>
